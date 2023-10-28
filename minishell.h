@@ -6,7 +6,7 @@
 /*   By: sgundogd <sgundogd@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/19 20:23:32 by sgundogd          #+#    #+#             */
-/*   Updated: 2023/09/19 20:25:46 by sgundogd         ###   ########.fr       */
+/*   Updated: 2023/09/20 22:22:28 by sgundogd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,11 +20,17 @@
 #include <readline/history.h>
 #include "libft/libft.h"
 
+typedef struct s_data
+{
+	char			*content;
+	int				type;
+	struct s_data	*next;
+}					t_data;
 
-void	ft_lstclear(t_list **lst);
-t_list	*ft_create(int nbr);
-void	ft_cleaner(char **ptr);
-void ft_parser(char *str,t_list **total_line);
-char **ft_split_2(char *str, t_list **total_line);
+void ft_parser(char *str,t_data **total_line);
+void ft_split_2(char *str, t_data **total_line);
+t_data	*ft_last(t_data *lst);
+t_data	*ft_create(char *str);
+
 
 #endif

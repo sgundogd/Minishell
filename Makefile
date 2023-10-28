@@ -1,7 +1,7 @@
 NAME = minishell
 CC = gcc
 FLAGS = -Wall -Wextra -Werror -L/usr/local/lib -I/usr/local/include -lreadline
-SRCS = ./deneme.c
+SRCS = ./main.c ./utils.c ./parse.c
 OBJ = $(SRCS:.c=.o)
 RM = rm -rf
 LIBFT = libft/libft.a
