@@ -6,7 +6,7 @@
 /*   By: sgundogd <sgundogd@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/19 20:24:32 by sgundogd          #+#    #+#             */
-/*   Updated: 2023/10/28 22:22:11 by sgundogd         ###   ########.fr       */
+/*   Updated: 2023/10/29 04:44:38 by sgundogd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,12 @@ int main()
 		{
 			add_history(line);
 			ft_parser(line, &total_line);
+			while (total_line)
+			{
+				printf("%s\n", total_line->content);
+				total_line = total_line->next;
+			}
+
 			ft_control(&total_line);
 		}
 	}

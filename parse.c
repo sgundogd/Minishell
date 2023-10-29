@@ -6,7 +6,7 @@
 /*   By: sgundogd <sgundogd@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/20 22:49:51 by sgundogd          #+#    #+#             */
-/*   Updated: 2023/09/20 22:49:52 by sgundogd         ###   ########.fr       */
+/*   Updated: 2023/10/29 04:44:13 by sgundogd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,17 @@ void ft_split_2(char *str, t_data **total_line)
 	int start = 0;
 	int j = 0;
 	t_data *tmp;
+	if(is_quote(str))
+	{
+		if((*total_line))
+		{
+			tmp = ft_last(*total_line);
+			tmp->next = ft_create(ft_strdup(str));
+		}
+		else
+			(*total_line) = ft_create(ft_strdup(str));
+		return;
+	}
 	while (str[i])
 	{
 		if(str[i] == '|' ||str[i] == '<' ||str[i] == '>')
@@ -69,11 +80,14 @@ void ft_parser(char *str,t_data **total_line)
 	int i;
 
 	i = 0;
-	ptr = ft_split(str,' ');
+	ptr = ft_spc_split(str);
 	while(ptr[i])
 	{
+		//printf("%s\n",ptr[i]);
 		ft_split_2(ptr[i],total_line);
 		i++;
 
 	}
 }
+
+
