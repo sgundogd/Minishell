@@ -6,7 +6,7 @@
 /*   By: sgundogd <sgundogd@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/28 22:38:51 by sgundogd          #+#    #+#             */
-/*   Updated: 2023/10/29 04:28:21 by sgundogd         ###   ########.fr       */
+/*   Updated: 2023/10/29 12:01:14 by sgundogd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,12 +42,11 @@ static int	ft_counter(char const	*s)
 	return (count + 1);
 }
 
-static void ft_update(const char *s, int *start, int *end)
+static void ft_update(const char *s, int start2, int *end)
 {
 	int end2 = *end;
-	int start2 = *start;
 	char c = s[end2];
-	if(end2 != start2)
+	if(s[start2]!= '"'&& s[start2] != '\'')
 	{
 		while (!is_operate(s[start2]) && s[start2] != c)
 			start2++;
@@ -61,9 +60,14 @@ static void ft_update(const char *s, int *start, int *end)
 	while(s[start2] && s[start2] != c)
 		start2++;
 	start2++;
+	if(s[start2]== '"'|| s[start2] == '\'')
+		ft_update(s,start2,end);
+	else
+	{
 	while (s[start2] && s[start2] != ' ' && !is_operate(s[start2]))
 		start2++;
 	(*end) = start2;
+	}
 
 }
 
@@ -81,14 +85,14 @@ static char	**ft_string(char const *s, char **ptr)
 			start++;
 		end = start;
 		if(s[start] == '"' || s[start] == '\'')
-			ft_update(s,&start,&end);
+			ft_update(s,start,&end);
 		else
 		{
 			while (s[end] != ' ' && s[end])
 			{
 				if(s[end] == '"' || s[end] == '\'')
 				{
-					ft_update(s,&start,&end);
+					ft_update(s,start,&end);
 					break;
 				}
 				end++;
