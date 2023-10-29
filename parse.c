@@ -6,7 +6,7 @@
 /*   By: sgundogd <sgundogd@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/20 22:49:51 by sgundogd          #+#    #+#             */
-/*   Updated: 2023/10/29 04:44:13 by sgundogd         ###   ########.fr       */
+/*   Updated: 2023/10/29 11:36:10 by sgundogd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,8 @@ void ft_split_2(char *str, t_data **total_line)
 	t_data *tmp;
 	if(is_quote(str))
 	{
+		if(ft_strlen(str) > 2)
+		{
 		if((*total_line))
 		{
 			tmp = ft_last(*total_line);
@@ -29,6 +31,7 @@ void ft_split_2(char *str, t_data **total_line)
 		}
 		else
 			(*total_line) = ft_create(ft_strdup(str));
+		}
 		return;
 	}
 	while (str[i])
@@ -45,17 +48,37 @@ void ft_split_2(char *str, t_data **total_line)
 			else
 				(*total_line) = ft_create(ft_substr(str,start,i-start));
 			tmp = ft_last(*total_line);
-			tmp->next = ft_create(ft_substr(str,i,1));
+			if(str[i] == str[i+1])
+			{
+				tmp->next = ft_create(ft_substr(str,i,2));
+				i++;
+			}
+			else
+				tmp->next = ft_create(ft_substr(str,i,1));
 		}
 		else
 		{
 			if((*total_line))
 			{
 				tmp = ft_last(*total_line);
-				tmp->next = ft_create(ft_substr(str,i,1));
+				if(str[i] == str[i+1])
+				{
+
+				tmp->next = ft_create(ft_substr(str,i,2));
+				i++;
+				}
+				else
+					tmp->next = ft_create(ft_substr(str,i,1));
 			}
 			else
-				(*total_line) = ft_create(ft_substr(str,i,1));
+				if(str[i] == str[i+1])
+				{
+
+				(*total_line) = ft_create(ft_substr(str,i,2));
+				i++;
+				}
+				else
+					(*total_line) = ft_create(ft_substr(str,i,1));
 		}
 		start = i+1;
 		}

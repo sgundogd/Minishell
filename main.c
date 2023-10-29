@@ -6,7 +6,7 @@
 /*   By: sgundogd <sgundogd@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/19 20:24:32 by sgundogd          #+#    #+#             */
-/*   Updated: 2023/10/29 04:44:38 by sgundogd         ###   ########.fr       */
+/*   Updated: 2023/10/29 11:08:30 by sgundogd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ void ft_control(t_data **total_line)
 			if(tmp_2 && *(tmp_1->content) == *(tmp_2->content))
 			{
 				tmp_2 = tmp_2->next;
-				if(tmp_2 && *(tmp_1->content) == *(tmp_2->content))
+				if(tmp_2 && (*(tmp_1->content) == *(tmp_2->content) || *(tmp_1->content) =='|'))
 					printf("error 1\n");
 			}
 			else
@@ -42,11 +42,29 @@ void ft_control(t_data **total_line)
 
 }
 
+/*void ft_control(char *line)
+{
+	int i = 0;
+	while(line[i])
+	{
+		if(line[i] == '<' || line[i] == '>')
+			if(line[i+1] == line[i] && line[i+2] == line[i])
+				printf("error1");
+		if(line[i] == '|')
+			if(line[i+1] == line[i] && line[i+2] == line[i])
+				printf("error1");
+		i++;
+	}
+
+}*/
+
 int main()
 {
 	t_data *total_line;
+	int i = 0;
 	while (1)
 	{
+		i = 0;
 		total_line = malloc(sizeof(t_data));
 		total_line = NULL;
 		char *line;
@@ -54,14 +72,15 @@ int main()
 		if(*line && line)
 		{
 			add_history(line);
+			//ft_control(line);
 			ft_parser(line, &total_line);
 			while (total_line)
 			{
-				printf("%s\n", total_line->content);
+				printf("\neleman %d ---->    %s\n", i,total_line->content);
 				total_line = total_line->next;
+				i++;
 			}
 
-			ft_control(&total_line);
 		}
 	}
 }
